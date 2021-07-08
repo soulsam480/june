@@ -1,19 +1,26 @@
-const Post = require("../models/post");
-const User = require("../models/user");
-const Notification = require("../models/notification");
-const { extend } = require("lodash");
-const { cloudinary } = require("../utils/cloudinary");
-const user = require("../models/user");
+import Post, { PostSchema } from '../models/post';
+import User from '../models/user';
+import Notification from '../models/notification';
+import { extend } from 'lodash';
+import { cloudinary } from '../utils/cloudinary';
+import { NextFunction, Response } from 'express';
+import { JuneHandler, JuneRequest } from '../utils/types';
 
 // middleware
-exports.findPostById = async (req, res, next, postId) => {
+export const findPostById = async (
+  req: JuneRequest,
+  res: Response,
+  next: NextFunction,
+  postId: string,
+) => {
   try {
-    let post = await Post.findById(postId);
-    if (post === undefined) {
-      return res.status.json({
-        message: "could not find the post",
+    const post = await Post.findById(postId);
+    if (!post) {
+      return res.status(400).send({
+        message: 'could not find the post',
       });
     }
+
     req.post = post;
     return next();
   } catch (error) {
@@ -23,32 +30,14 @@ exports.findPostById = async (req, res, next, postId) => {
   }
 };
 
-// get posts
-exports.getPosts = async (req, res) => {
-  try {
-    const { resources } = await cloudinary.search
-      .expression("folder:june_gallary")
-      .sort_by("public_id", "desc")
-      .max_results(10)
-      .execute();
-
-    const publicIds = resources.map((file) => file.public_id);
-    res.send(publicIds);
-  } catch (error) {
-    res.status(400).json({
-      message: error.message,
-    });
-  }
-};
-
-exports.getJunePosts = async (req, res) => {
+export const getJunePosts: JuneHandler = async (req, res) => {
   try {
     const junePosts = await Post.find()
-      .populate("comments")
-      .populate({ path: "user", select: ["username", "profile_photo"] })
+      .populate('comments')
+      .populate({ path: 'user', select: ['username', 'profile_photo'] })
       .populate({
-        path: "comments.commentedBy",
-        select: ["username", "profile_photo"],
+        path: 'comments.commentedBy',
+        select: ['username', 'profile_photo'],
       })
       .sort({ _id: -1 })
       .limit(8);
@@ -59,31 +48,16 @@ exports.getJunePosts = async (req, res) => {
     });
   }
 };
-// get notifications
-exports.getNotificationsById = async (req, res) => {
-  try {
-    const userNotifications = await Notification.find({
-      user: req.userId,
-    })
-      .populate({ path: "user", select: ["username", "profile_photo"] })
-      .populate({ path: "actionBy", select: ["username", "profile_photo"] })
-      .sort({ _id: -1 });
-
-    res.json(userNotifications);
-  } catch (error) {
-    res.status(400).json({
-      message: error.message,
-    });
-  }
-};
 
 // create post
-exports.uploadPost = async (req, res) => {
+export const uploadPost: JuneHandler = async (req, res) => {
   try {
-    let user = await User.findById(req.userId);
+    const user = await User.findById(req.userId);
+    if (!user) return res.status(400).send('User not found !');
+
     const fileStr = req.body.photo;
     const uploadResponse = await cloudinary.uploader.upload(fileStr, {
-      upload_preset: "june_gallary",
+      upload_preset: 'june_gallary',
     });
 
     const post = await new Post({
@@ -102,20 +76,18 @@ exports.uploadPost = async (req, res) => {
     res.json(savedPost);
   } catch (error) {
     console.error(error);
-    res
-      .status(500)
-      .json({ error: "Something went wrong", message: error.message });
+    res.status(500).json({ error: 'Something went wrong', message: error.message });
   }
 };
 
 // update posts
-exports.updateCaption = async (req, res) => {
+export const updateCaption: JuneHandler = async (req, res) => {
   try {
     let post = req.post;
-    let changedCaption = req.body.editedCaption;
+    const changedCaption = req.body.editedCaption;
 
     post = extend(post, changedCaption);
-    const savedPost = await post.save();
+    await post.save();
     res.json(post);
   } catch (error) {
     res.status(400).json({
@@ -124,17 +96,19 @@ exports.updateCaption = async (req, res) => {
   }
 };
 
-exports.likePost = async (req, res) => {
+export const likePost: JuneHandler = async (req, res) => {
   try {
-    let post = req.post;
-    let user = await User.findById(req.userId);
-    post.likes.unshift(req.userId);
+    const post = req.post;
+    const user = await User.findById(req.userId);
+    if (!user) return res.status(400).send('User not found !');
+
+    post.likes.unshift(req.userId as string);
     user.likedPosts.unshift(post._id);
     post.save();
     user.save();
 
     // adding notification
-    if (post.user.toString() !== req.userId.toString()) {
+    if (post.user.toString() !== (req.userId as string).toString()) {
       const notification = new Notification({
         notificationMessage: `${user.username} liked your post`,
         user: post.user,
@@ -153,17 +127,16 @@ exports.likePost = async (req, res) => {
   }
 };
 
-exports.unlikePost = async (req, res) => {
+export const unlikePost: JuneHandler = async (req, res) => {
   try {
-    let post = req.post;
-    let user = await User.findById(req.userId);
+    const post = req.post;
+    const user = await User.findById(req.userId);
+    if (!user) return res.status(400).send('User not found !');
 
-    let userIndex = post.likes.findIndex(
-      (like) => like.toString() == req.userId.toString()
+    const userIndex = post.likes.findIndex(
+      (like) => like.toString() == (req.userId as any).toString(),
     );
-    let postIndex = user.likedPosts.findIndex(
-      (like) => like.toString() == post._id.toString()
-    );
+    const postIndex = user.likedPosts.findIndex((like) => like.toString() == post._id.toString());
 
     post.likes.splice(userIndex, 1);
     user.likedPosts.splice(postIndex, 1);
@@ -181,19 +154,21 @@ exports.unlikePost = async (req, res) => {
   }
 };
 
-exports.commentPosts = async (req, res) => {
+export const commentPosts: JuneHandler = async (req, res) => {
   try {
-    let post = req.post;
-    let user = await User.findById(req.userId);
-    let userComment = req.body.comment;
+    const post = req.post;
+    const user = await User.findById(req.userId);
+    if (!user) return res.status(400).send('User not found !');
+
+    const userComment = req.body.comment;
     post.comments.unshift({
       comment: userComment,
-      commentedBy: req.userId,
+      commentedBy: req.userId as string,
     });
     user.commentedPosts.unshift(post._id);
 
     // adding notification
-    if (post.user.toString() !== req.userId.toString()) {
+    if (post.user.toString() !== (req.userId as string).toString()) {
       const notification = new Notification({
         notificationMessage: `${user.username} commented on your post : ${userComment}`,
         user: post.user,
@@ -215,16 +190,17 @@ exports.commentPosts = async (req, res) => {
   }
 };
 
-exports.unCommentPosts = async (req, res) => {
+export const unCommentPosts: JuneHandler = async (req, res) => {
   try {
-    let post = req.post;
-    let user = await User.findById(req.userId);
+    const post = req.post;
+    const user = await User.findById(req.userId);
+    if (!user) return res.status(400).send('User not found !');
 
-    let userIndex = post.comments.findIndex(
-      (item) => item._id.toString() == req.params.commentId.toString()
+    const userIndex = post.comments.findIndex(
+      (item) => (item._id as string).toString() == req.params.commentId.toString(),
     );
-    let postIndex = user.commentedPosts.findIndex(
-      (item) => item.toString() == post._id.toString()
+    const postIndex = user.commentedPosts.findIndex(
+      (item) => item.toString() == post._id.toString(),
     );
 
     post.comments.splice(userIndex, 1);
@@ -241,12 +217,14 @@ exports.unCommentPosts = async (req, res) => {
   }
 };
 // delete post
-exports.deletePost = async (req, res) => {
+export const deletePost: JuneHandler = async (req, res) => {
   try {
-    let user = await User.findById(req.userId);
-    let post = req.post;
+    const user = await User.findById(req.userId);
+    if (!user) return res.status(400).send('User not found !');
+
+    const post = req.post;
     const filteredUser = user.posts.filter(
-      (item) => post._id.toString() !== item._id.toString()
+      (item) => post._id.toString() !== (item as any as PostSchema)._id.toString(),
     );
     const removedPost = await post.remove();
     if (removedPost === undefined) {
@@ -255,7 +233,7 @@ exports.deletePost = async (req, res) => {
       });
     }
     // deleting from cloudinary DB
-    cloudinary.v2.uploader.destroy(post.public_id);
+    cloudinary.uploader.destroy(post.public_id);
 
     user.posts = filteredUser;
 
@@ -264,11 +242,11 @@ exports.deletePost = async (req, res) => {
 
     if (savedUser === undefined) {
       res.status(400).json({
-        message: "post did not delete from the user DB",
+        message: 'post did not delete from the user DB',
       });
     }
     res.json({
-      message: "post deleted successfully",
+      message: 'post deleted successfully',
     });
   } catch (error) {
     res.status(400).json({
