@@ -14,6 +14,7 @@
     "start": "concurrently --kill-others-on-fail \"yarn app\"  \"yarn server\"",
     "start:server": "yarn workspace @june/api start",
     "dev:appv2": "yarn workspace appv2 dev",
+    "build:appv2": "yarn workspace appv2 dev",
     "dev": "concurrently --kill-others-on-fail \"yarn dev:appv2\"  \"yarn server\""
   },
   "dependencies": {
