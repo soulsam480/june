@@ -8,7 +8,13 @@ export default defineConfig({
   server: {
     port: 4002,
   },
-  plugins: [reactRefresh(), WindiCSS(), PurgeIcons()],
+  plugins: [
+    reactRefresh(),
+    WindiCSS(),
+    PurgeIcons({
+      included: ['ion:heart-outline', 'ion:heart'],
+    }),
+  ],
   resolve: {
     alias: {
       src: '/src',

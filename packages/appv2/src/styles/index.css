@@ -1,0 +1,5 @@
+:root,
+body {
+  @apply bg-warm-gray-100;
+  font-size: 16px;
+}
