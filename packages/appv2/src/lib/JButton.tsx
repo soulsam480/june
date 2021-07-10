@@ -1,28 +1,29 @@
 import React, { ComponentProps } from 'react';
 import { classNames } from 'src/utils/hepers';
 import JIcon from 'src/lib/JIcon';
+import JAvatar from 'src/lib/JAvatar';
 
-interface Props extends ComponentProps<'button'> {
-  label?: any;
+export interface JButtonProps extends ComponentProps<'button'> {
+  label?: string;
   icon?: string;
   size?: string;
   sm?: boolean;
   invert?: boolean;
-  center?: boolean;
   block?: boolean;
   flat?: boolean;
   color?: string;
   round?: boolean;
   outline?: boolean;
   loading?: boolean;
+  avatar?: string;
+  avatarRound?: boolean;
   iconSlot?: React.ReactNode;
   labelSlot?: React.ReactNode;
 }
 
-const JButton: React.FC<Props> = ({
+const JButton: React.FC<JButtonProps> = ({
   block,
   size,
-  center,
   color,
   flat,
   icon,
@@ -34,15 +35,17 @@ const JButton: React.FC<Props> = ({
   outline,
   round,
   loading,
+  avatar,
+  avatarRound,
   ...rest
 }) => {
   return (
     <button
       className={classNames([
         {
-          'px-2 py-2': sm,
-          'px-3 py-2': !sm,
+          '!px-2 !py-2': sm,
           'w-full': block,
+          '!px-3 !py-3': round && !sm,
         },
         invert
           ? 'bg-lime-400 hover:bg-lime-300'
@@ -66,7 +69,25 @@ const JButton: React.FC<Props> = ({
           },
         ])}
       >
-        <>{!!iconSlot ? iconSlot : icon && <JIcon icon={icon} size={sm ? '12px' : size} />}</>
+        <>
+          {!!iconSlot ? (
+            iconSlot
+          ) : icon ? (
+            <JIcon icon={icon} size={sm ? '12px' : size} />
+          ) : (
+            avatar && (
+              <JAvatar
+                icon={avatar.startsWith('icn:') ? avatar.split('icn:')[1] : undefined}
+                src={avatar.startsWith('img:') ? avatar.split('img:')[1] : undefined}
+                size={size || '16px'}
+                content={
+                  !avatar.startsWith('img:') || !avatar.startsWith('icn:') ? avatar : undefined
+                }
+                rounded={avatarRound}
+              />
+            )
+          )}
+        </>
         <>
           {labelSlot
             ? labelSlot

@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import JAvatar from 'src/lib/JAvatar';
+import JMenu from 'src/lib/JMenu';
 import { classNames } from 'src/utils/hepers';
 
 interface Props {}
 
 const AppNavbar: React.FC<Props> = () => {
   const [isNav, setNav] = useState(false);
+  const [val, setVal] = useState('');
+  const options = ['aaa', 'vv', 'seef'];
   return (
     <nav
       className={classNames([
@@ -17,7 +20,18 @@ const AppNavbar: React.FC<Props> = () => {
       <div className="max-w-7xl mx-auto px-2">
         <div className="relative flex items-center justify-between h-14">
           <div className="text-2xl">June</div>
-          <div className="flex space-x-1">
+          <div className="flex space-x-1 items-center">
+            <JMenu
+              value={val}
+              onInput={(v) => setVal(v)}
+              options={options}
+              avatarRound
+              size="25px"
+              label="menu"
+              outline
+              avatar="img:https://cdn.quasar.dev/img/avatar.png"
+            />
+
             <JAvatar rounded src="https://cdn.quasar.dev/img/avatar.png" />
           </div>
         </div>
