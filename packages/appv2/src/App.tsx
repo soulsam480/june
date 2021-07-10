@@ -1,7 +1,7 @@
 import React from 'react';
 import AppNavbar from 'src/components/AppNavbar';
 import JButton from 'src/lib/JButton';
-import JAvatar from './lib/JAvatar';
+import JAvatar from 'src/lib/JAvatar';
 
 interface Props {}
 
@@ -9,33 +9,33 @@ const App: React.FC<Props> = () => {
   return (
     <div>
       <AppNavbar />
-      <div className="px-2 py-1 max-w-7xl mx-auto">
+      <div className="px-2 py-1 max-w-7xl mx-auto h-[2000px]">
         <div>
           <div className="text-lg">Buttons</div>
           <div className="flex space-x-3 my-2 items-center">
             <JButton label="Manish" icon="ion:person" outline />
             <JButton label="Manish" icon="ion:person" flat />
-            <JButton label="Manish" icon="ion:person" invert />
+            <JButton label="Manish" icon="ion:person" invert loading />
           </div>
           <div className="flex space-x-3 my-2 items-center">
             <JButton label="Manish" outline />
             <JButton label="Manish" flat />
-            <JButton label="Manish" invert />
+            <JButton label="Manish" invert loading />
           </div>
           <div className="flex space-x-3 my-2 items-center">
             <JButton label="Manish" sm outline />
             <JButton label="Manish" sm flat />
-            <JButton label="Manish" sm invert />
+            <JButton label="Manish" sm invert loading />
           </div>
           <div className="flex space-x-3 items-center">
             <JButton icon="ion:heart-outline" sm outline />
             <JButton icon="ion:heart-outline" sm flat />
-            <JButton icon="ion:heart-outline" sm invert />
+            <JButton icon="ion:heart-outline" sm invert loading />
           </div>
           <div className="flex space-x-3 items-center my-2">
             <JButton icon="ion:heart-outline" sm round outline />
             <JButton icon="ion:heart-outline" sm round flat />
-            <JButton icon="ion:heart-outline" sm round invert />
+            <JButton icon="ion:heart-outline" sm round invert loading />
           </div>
         </div>
         <div>
