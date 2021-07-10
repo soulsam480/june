@@ -1,14 +1,30 @@
-import React, { useState } from 'react';
-import JAvatar from 'src/lib/JAvatar';
+import React from 'react';
+import JIcon from 'src/lib/JIcon';
 import JMenu from 'src/lib/JMenu';
 import { classNames } from 'src/utils/hepers';
 
 interface Props {}
 
 const AppNavbar: React.FC<Props> = () => {
-  const [isNav, setNav] = useState(false);
-  const [val, setVal] = useState('');
-  const options = ['aaa', 'vv', 'seef'];
+  // const [isNav, setNav] = useState(false);
+  // const [val, setVal] = useState('');
+  const options = [
+    {
+      label: 'Account',
+      value: 'account',
+      icon: 'ion:ios-contact-outline',
+    },
+    {
+      label: 'Home',
+      value: 'home',
+      icon: 'ion:home-outline',
+    },
+    {
+      label: 'Log out',
+      value: 'logout',
+      icon: 'ion:log-out-outline',
+    },
+  ];
   return (
     <nav
       className={classNames([
@@ -22,17 +38,22 @@ const AppNavbar: React.FC<Props> = () => {
           <div className="text-2xl">June</div>
           <div className="flex space-x-1 items-center">
             <JMenu
-              value={val}
-              onInput={(v) => setVal(v)}
               options={options}
               avatarRound
-              size="25px"
-              label="menu"
-              outline
               avatar="img:https://cdn.quasar.dev/img/avatar.png"
+              label="Manish"
+              size="25px"
+              flat
+              optionKey="value"
+              optionSlot={(option, getVal) => (
+                <div className="w-full flex items-center space-x-2">
+                  <span className="flex-none">
+                    <JIcon icon={getVal(option, 'icon')} />
+                  </span>
+                  <span className="flex-grow"> {getVal(option, 'label')} </span>
+                </div>
+              )}
             />
-
-            <JAvatar rounded src="https://cdn.quasar.dev/img/avatar.png" />
           </div>
         </div>
       </div>
