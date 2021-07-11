@@ -33,10 +33,17 @@ const JButton: React.FC<JButtonProps> = ({
   return (
     <button
       className={classNames([
+        'j-button',
         {
           'w-full': block,
         },
-        dense ? '!px-[2px] !py-[2px]' : round ? '!px-3 !py-3' : sm ? '!px-2 !py-2' : '',
+        dense
+          ? '!px-[2px] !py-[2px]'
+          : sm || (sm && round)
+          ? '!px-2 !py-2'
+          : round
+          ? '!px-3 !py-3'
+          : '',
         invert
           ? 'bg-lime-400 hover:bg-lime-300'
           : flat
@@ -45,7 +52,6 @@ const JButton: React.FC<JButtonProps> = ({
           ? 'hover:bg-lime-200 border border-lime-400'
           : 'bg-lime-300 hover:bg-lime-400',
         `${round ? 'rounded-full' : 'rounded-md'}`,
-        'j-button',
         `${rest.className ?? ''}`,
       ])}
       type="button"

@@ -5,10 +5,12 @@ import JAvatar from 'src/lib/JAvatar';
 import JMenu from 'src/lib/JMenu';
 import { useState } from 'react';
 import JIcon from 'src/lib/JIcon';
+import { classNames } from './utils/hepers';
 
 interface Props {}
 
 const App: React.FC<Props> = () => {
+  const [isLike, setLike] = useState(false);
   const [val, setVal] = useState('');
   const options = [
     {
@@ -59,9 +61,29 @@ const App: React.FC<Props> = () => {
               <JButton icon="ion:heart-outline" sm invert loading />
             </div>
             <div className="flex space-x-3 items-center flex-wrap">
-              <JButton icon="ion:heart-outline" sm round outline />
-              <JButton icon="ion:heart-outline" sm round flat />
-              <JButton icon="ion:heart-outline" sm round invert loading />
+              <JButton icon="ion:heart" sm round outline />
+              <JButton
+                icon="ion:heart"
+                round
+                flat
+                className={classNames(['!bg-transparent', { 'text-red-700': isLike }])}
+                size="20px"
+                onClick={() => setLike(!isLike)}
+              />
+              <JButton
+                icon="ion:heart"
+                sm
+                round
+                invert
+                className={classNames([{ 'text-red-700': isLike }])}
+              />
+              <JButton
+                icon="ion:heart"
+                sm
+                round
+                className={classNames([{ 'text-red-700': isLike }])}
+                onClick={() => setLike(!isLike)}
+              />
             </div>
           </div>
           <div className="flex flex-col space-y-2">

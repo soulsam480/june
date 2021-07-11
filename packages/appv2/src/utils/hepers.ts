@@ -18,5 +18,5 @@ export function classNames(
       .filter((x) => x)
       .join(' ');
   });
-  return fromArray.join(' ');
+  return fromArray.filter((x) => x).join(' ');
 }
