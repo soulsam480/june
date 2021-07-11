@@ -1,25 +1,12 @@
-import React, { ComponentProps } from 'react';
+import React from 'react';
 import { classNames } from 'src/utils/hepers';
 import JIcon from 'src/lib/JIcon';
 import JAvatar from 'src/lib/JAvatar';
+import { BaseJButtonProps } from 'src/utils/types';
 
-export interface JButtonProps extends ComponentProps<'button'> {
-  label?: string;
-  icon?: string;
-  size?: string;
-  sm?: boolean;
-  invert?: boolean;
-  block?: boolean;
-  flat?: boolean;
-  color?: string;
-  round?: boolean;
-  outline?: boolean;
+export interface JButtonProps extends BaseJButtonProps {
+  className?: string;
   loading?: boolean;
-  avatar?: string;
-  avatarRound?: boolean;
-  iconRight?: boolean;
-  dense?: boolean;
-  iconSlot?: React.ReactNode;
   labelSlot?: React.ReactNode;
 }
 

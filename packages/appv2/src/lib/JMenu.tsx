@@ -3,31 +3,16 @@ import { CSSTransition } from 'react-transition-group';
 import { classNames } from 'src/utils/hepers';
 import { useClickoutside } from 'src/utils/hooks';
 import JButton from 'src/lib/JButton';
+import { BaseJButtonProps } from 'src/utils/types';
 
 export type optionType = string | { [k in 'label' | 'value']: any };
 
-interface Props {
+interface Props extends BaseJButtonProps {
   options: optionType[];
   optionKey?: 'label' | 'value';
   value?: string;
-  onInput?: (val: string, e: MouseEvent) => void;
-  label?: string;
-  icon?: string;
-  size?: string;
-  sm?: boolean;
-  invert?: boolean;
-  block?: boolean;
-  flat?: boolean;
-  color?: string;
-  round?: boolean;
-  outline?: boolean;
-  iconSlot?: React.ReactNode;
-  avatar?: string;
-  avatarRound?: boolean;
   listAlign?: 'left' | 'right';
-  iconRight?: boolean;
-  dense?: boolean;
-  onClick?: (e: MouseEvent) => void;
+  onInput?: (val: string, e: MouseEvent) => void;
   optionSlot?: (
     option: string | Record<string, any>,
     getOptionVal: (option: string | Record<string, any>, optionKey?: string) => string,
@@ -36,8 +21,10 @@ interface Props {
 
 const JMenu: React.FC<Props> = (props) => {
   const { options, optionKey, onInput, value, optionSlot, listAlign, ...rest } = props;
+
   const [isMenu, setMenu] = useState(false);
   const [ref] = useClickoutside<HTMLDivElement>(() => setMenu(false));
+
   function handleClose(e: KeyboardEvent) {
     if (!isMenu) return;
     const { key } = e;
