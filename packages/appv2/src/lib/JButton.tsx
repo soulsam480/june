@@ -17,6 +17,8 @@ export interface JButtonProps extends ComponentProps<'button'> {
   loading?: boolean;
   avatar?: string;
   avatarRound?: boolean;
+  iconRight?: boolean;
+  dense?: boolean;
   iconSlot?: React.ReactNode;
   labelSlot?: React.ReactNode;
 }
@@ -36,6 +38,8 @@ const JButton: React.FC<JButtonProps> = ({
   round,
   loading,
   avatar,
+  iconRight,
+  dense,
   avatarRound,
   ...rest
 }) => {
@@ -43,10 +47,9 @@ const JButton: React.FC<JButtonProps> = ({
     <button
       className={classNames([
         {
-          '!px-2 !py-2': sm,
           'w-full': block,
-          '!px-3 !py-3': round && !sm,
         },
+        dense ? '!px-[2px] !py-[2px]' : round ? '!px-3 !py-3' : sm ? '!px-2 !py-2' : '',
         invert
           ? 'bg-lime-400 hover:bg-lime-300'
           : flat
@@ -66,6 +69,7 @@ const JButton: React.FC<JButtonProps> = ({
           'j-button__content',
           {
             'j-button__content--loading': loading,
+            'flex-row-reverse !space-x-reverse ': iconRight,
           },
         ])}
       >

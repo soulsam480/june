@@ -25,6 +25,8 @@ interface Props {
   avatar?: string;
   avatarRound?: boolean;
   listAlign?: 'left' | 'right';
+  iconRight?: boolean;
+  dense?: boolean;
   onClick?: (e: MouseEvent) => void;
   optionSlot?: (
     option: string | Record<string, any>,

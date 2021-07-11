@@ -41,9 +41,12 @@ const AppNavbar: React.FC<Props> = () => {
               options={options}
               avatarRound
               avatar="img:https://cdn.quasar.dev/img/avatar.png"
-              label="Manish"
-              size="25px"
+              size="35px"
               flat
+              round
+              sm
+              dense
+              iconRight
               optionKey="value"
               optionSlot={(option, getVal) => (
                 <div className="w-full flex items-center space-x-2">

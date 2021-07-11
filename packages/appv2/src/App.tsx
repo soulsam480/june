@@ -133,15 +133,43 @@ const App: React.FC<Props> = () => {
                   listAlign="left"
                 />
               </div>
+              <div className="flex space-x-3">
+                <JMenu
+                  iconRight
+                  value={val}
+                  onInput={(v) => setVal(v)}
+                  options={options}
+                  optionKey="value"
+                  size="25px"
+                  label="menu"
+                  outline
+                  avatarRound
+                  avatar="img:https://cdn.quasar.dev/img/avatar.png"
+                  listAlign="left"
+                />{' '}
+                <JMenu
+                  iconRight
+                  value={val}
+                  onInput={(v) => setVal(v)}
+                  optionKey="value"
+                  options={options}
+                  size="25px"
+                  label="menu"
+                  avatarRound
+                  avatar="img:https://cdn.quasar.dev/img/avatar.png"
+                  listAlign="left"
+                />
+              </div>
               <JMenu
                 value={val}
                 onInput={(v) => setVal(v)}
                 optionKey="value"
                 options={options}
-                size="25px"
+                size="30px"
                 round
                 sm
                 avatarRound
+                dense
                 avatar="img:https://cdn.quasar.dev/img/avatar.png"
                 listAlign="left"
               />
