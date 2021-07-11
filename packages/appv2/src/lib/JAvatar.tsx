@@ -49,7 +49,10 @@ const JAvatar: React.FC<Props> = ({
 }) => {
   return (
     <div
-      className={classNames(['inline-block text-5xl align-middle relative', `${contentClass}`])}
+      className={classNames([
+        'inline-block text-5xl align-middle relative',
+        `${contentClass ?? ''}`,
+      ])}
       style={{
         fontSize: size || '40px',
         borderRadius: rounded ? '50%' : 'unset',
