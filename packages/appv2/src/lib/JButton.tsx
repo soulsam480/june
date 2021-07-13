@@ -45,12 +45,12 @@ const JButton: React.FC<JButtonProps> = ({
           ? '!px-3 !py-3'
           : '',
         invert
-          ? 'bg-lime-400 hover:bg-lime-300'
+          ? 'bg-lime-300 hover:bg-lime-400'
           : flat
           ? 'hover:bg-lime-200'
           : outline
           ? 'hover:bg-lime-200 border border-lime-400'
-          : 'bg-lime-300 hover:bg-lime-400',
+          : 'bg-lime-400 hover:bg-lime-300',
         `${round ? 'rounded-full' : 'rounded-md'}`,
         `${rest.className ?? ''}`,
       ])}
@@ -70,7 +70,7 @@ const JButton: React.FC<JButtonProps> = ({
           {!!iconSlot ? (
             iconSlot
           ) : icon ? (
-            <JIcon icon={icon} size={sm ? '12px' : size} />
+            <JIcon icon={icon} size={size ? size : sm ? '12px' : '16px'} />
           ) : (
             avatar && (
               <JAvatar
