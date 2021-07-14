@@ -35,17 +35,7 @@ const App: React.FC<Props> = () => {
   return (
     <div>
       <AppNavbar />
-      <div className="px-2 py-1 sm:max-w-7xl mx-auto">
-        {/* <Routes>
-          <Route path="/" element={<Lib />}>
-          </Route>
-
-          <Route path="u" element={<Authorized />}>
-            <Route path="" element={<Lib />} />
-          </Route>
-        </Routes> */}
-        {Routes}
-      </div>
+      <div className="px-2 py-1 sm:max-w-7xl mx-auto">{Routes}</div>
     </div>
   );
 };
