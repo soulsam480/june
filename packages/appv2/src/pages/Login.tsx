@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import JButton from 'src/lib/JButton';
 import JInput from 'src/lib/JInput';
-import { useScreenWidth } from 'src/utils/hooks';
 
 interface Props {}
 
@@ -15,16 +14,13 @@ interface LoginUserDto {
 const Login: React.FC<Props> = () => {
   const [user, setUser] = useState<LoginUserDto>();
   const [isLogin, setLogin] = useState(true);
-  const { width } = useScreenWidth();
 
   return (
-    <div className="my-30 w-full md:w-3/4 m-auto h-[475px]">
-      <div className="flex space-x-2 items-stretch h-full">
-        {width > 768 && (
-          <div className="w-full lg:w-1/2 hidden sm:block self-center">
-            <img src="/june-logo.svg" className="max-w-full m-auto block w-80" alt="" />
-          </div>
-        )}
+    <div className="my-30 w-full lg:w-3/4 m-auto h-[475px]">
+      <div className="flex md:space-x-2 items-stretch h-full">
+        <div className="w-full lg:w-1/2 hidden sm:block self-center">
+          <img src="/june-logo.svg" className="max-w-full m-auto block w-80" alt="" />
+        </div>
         <div className="w-full lg:w-1/2 flex flex-col space-y-4 flex-grow self-center">
           <div>
             {isLogin ? (

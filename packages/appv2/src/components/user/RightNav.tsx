@@ -10,7 +10,7 @@ const RightNav: React.FC<Props> = () => {
     <div>
       <div className="h-32 relative mb-10">
         <div
-          className="absolute inset-0 h-full w-full rounded-md bg-cover bg-no-repeat z-0 bg-gray-300"
+          className="absolute inset-0 h-full w-full rounded-md bg-cover bg-no-repeat z-0 bg-warm-gray-300"
           //   style={{ backgroundImage: "url('https://cdn.quasar.dev/img/avatar.png')" }}
         />
         <div className="absolute -bottom-[40px] z-10 left-1/2 transform -translate-x-1/2 mx-auto">
@@ -23,9 +23,9 @@ const RightNav: React.FC<Props> = () => {
       </div>
       <div className="flex flex-col pt-2 items-center space-y-2">
         <div className="text-2xl">Manish Sahu</div>
-        <div className="text-sm bg-gray-300 p-3 w-full rounded"></div>
-        <div className="text-sm bg-gray-300 p-3 w-full rounded"></div>
-        <div className="text-sm bg-gray-300 p-3 w-full rounded"></div>
+        <div className="text-sm bg-warm-gray-300 p-3 w-full rounded"></div>
+        <div className="text-sm bg-warm-gray-300 p-3 w-full rounded"></div>
+        <div className="text-sm bg-warm-gray-300 p-3 w-full rounded"></div>
         <div className="flex items-center w-full space-x-2 pt-3">
           <div className="flex-auto">
             <JButton icon="ion:settings-outline" label="Settings" block sm size="16px" />
@@ -55,18 +55,18 @@ const RightNav: React.FC<Props> = () => {
         </div>
         {/* Extract to component for skeleton loader */}
         <div className="flex-grow flex-col space-y-1 animate-pulse">
-          <div className="bg-gray-300 p-3 rounded"></div>
-          <div className="bg-gray-300 p-2 rounded w-1/4"></div>
-          <div className="bg-gray-300 p-2 rounded"></div>
-          <div className="bg-gray-300 p-2 rounded"></div>
-          <div className="bg-gray-300 p-2 rounded"></div>
+          <div className="bg-warm-gray-300 p-3 rounded"></div>
+          <div className="bg-warm-gray-300 p-2 rounded w-1/4"></div>
+          <div className="bg-warm-gray-300 p-2 rounded"></div>
+          <div className="bg-warm-gray-300 p-2 rounded"></div>
+          <div className="bg-warm-gray-300 p-2 rounded"></div>
         </div>
         <div className="flex-grow flex-col space-y-1 animate-pulse">
-          <div className="bg-gray-300 p-3 rounded"></div>
-          <div className="bg-gray-300 p-2 rounded w-1/4"></div>
-          <div className="bg-gray-300 p-2 rounded"></div>
-          <div className="bg-gray-300 p-2 rounded"></div>
-          <div className="bg-gray-300 p-2 rounded"></div>
+          <div className="bg-warm-gray-300 p-3 rounded"></div>
+          <div className="bg-warm-gray-300 p-2 rounded w-1/4"></div>
+          <div className="bg-warm-gray-300 p-2 rounded"></div>
+          <div className="bg-warm-gray-300 p-2 rounded"></div>
+          <div className="bg-warm-gray-300 p-2 rounded"></div>
         </div>
       </div>
     </div>
