@@ -37,22 +37,8 @@ const RightNav: React.FC<Props> = () => {
       </div>
       <div className="flex flex-col mt-5 space-y-3">
         <div className="text-xl">Activity</div>
-        <div className="flex flex-col space-y-1">
-          <div className="text-base">Cabinet reshuffle</div>
-          <div className="text-xs flex space-x-1">
-            {' '}
-            <JIcon icon="ion:heart" className="text-red-500" />{' '}
-            <span className="text-gray-500">2.9k</span>
-          </div>
-          <div className="text-sm break-break-words">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque at nibh sem. Morbi
-            molestie felis vel eros iaculis, lobortis{' '}
-            <div className="truncate">
-              Nunc at ex dapibus, maximus purus eget, finibus est tincidunt.
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-col space-y-1">
+        {/* Extract to component */}
+        <div className="flex flex-col space-y-2">
           <div className="text-base">Virgin galactic</div>
           <div className="text-xs flex space-x-1">
             {' '}
@@ -67,9 +53,21 @@ const RightNav: React.FC<Props> = () => {
             </div>
           </div>
         </div>
-        <div className="text-sm bg-gray-300 p-3 w-full rounded"></div>
-        <div className="text-sm bg-gray-300 p-3 w-full rounded"></div>
-        <div className="text-sm bg-gray-300 p-3 w-full rounded"></div>
+        {/* Extract to component for skeleton loader */}
+        <div className="flex-grow flex-col space-y-1 animate-pulse">
+          <div className="bg-gray-300 p-3 rounded"></div>
+          <div className="bg-gray-300 p-2 rounded w-1/4"></div>
+          <div className="bg-gray-300 p-2 rounded"></div>
+          <div className="bg-gray-300 p-2 rounded"></div>
+          <div className="bg-gray-300 p-2 rounded"></div>
+        </div>
+        <div className="flex-grow flex-col space-y-1 animate-pulse">
+          <div className="bg-gray-300 p-3 rounded"></div>
+          <div className="bg-gray-300 p-2 rounded w-1/4"></div>
+          <div className="bg-gray-300 p-2 rounded"></div>
+          <div className="bg-gray-300 p-2 rounded"></div>
+          <div className="bg-gray-300 p-2 rounded"></div>
+        </div>
       </div>
     </div>
   );
