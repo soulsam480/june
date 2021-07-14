@@ -8,6 +8,7 @@ export interface JButtonProps extends BaseJButtonProps {
   className?: string;
   loading?: boolean;
   labelSlot?: React.ReactNode;
+  type?: 'button' | 'submit' | 'reset';
 }
 
 const JButton: React.FC<JButtonProps> = ({
@@ -28,6 +29,8 @@ const JButton: React.FC<JButtonProps> = ({
   iconRight,
   dense,
   avatarRound,
+  type,
+  noBg,
   ...rest
 }) => {
   return (
@@ -44,7 +47,9 @@ const JButton: React.FC<JButtonProps> = ({
           : round
           ? '!px-3 !py-3'
           : '',
-        invert
+        noBg
+          ? 'bg-transparent hover:(bg-transparent text-lime-600)'
+          : invert
           ? 'bg-lime-300 hover:bg-lime-400'
           : flat
           ? 'hover:bg-lime-200'
@@ -54,7 +59,7 @@ const JButton: React.FC<JButtonProps> = ({
         `${round ? 'rounded-full' : 'rounded-md'}`,
         `${rest.className ?? ''}`,
       ])}
-      type="button"
+      type={type || 'button'}
       onClick={rest.onClick}
     >
       <span

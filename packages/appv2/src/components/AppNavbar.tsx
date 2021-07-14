@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import JButton from 'src/lib/JButton';
 import JIcon from 'src/lib/JIcon';
 import JMenu from 'src/lib/JMenu';
 import { classNames } from 'src/utils/hepers';
@@ -42,27 +43,32 @@ const AppNavbar: React.FC<Props> = () => {
             </Link>
           </div>
           <div className="flex space-x-1 items-center">
-            <JMenu
-              options={options}
-              avatarRound
-              avatar="img:https://cdn.quasar.dev/img/avatar.png"
-              size="35px"
-              flat
-              round
-              sm
-              dense
-              iconRight
-              invert
-              optionKey="value"
-              optionSlot={(option, getVal) => (
-                <div className="w-full flex items-center space-x-2">
-                  <span className="flex-none">
-                    <JIcon icon={getVal(option, 'icon')} />
-                  </span>
-                  <span className="flex-grow"> {getVal(option, 'label')} </span>
-                </div>
-              )}
-            />
+            <JButton noBg icon="ion:chatbubble-ellipses-outline" size="25px" sm />
+
+            <div className="hidden sm:block">
+              <JMenu
+                options={options}
+                avatarRound
+                avatar="img:https://cdn.quasar.dev/img/avatar.png"
+                size="35px"
+                flat
+                round
+                sm
+                dense
+                iconRight
+                invert
+                noBg
+                optionKey="value"
+                optionSlot={(option, getVal) => (
+                  <div className="w-full flex items-center space-x-2">
+                    <span className="flex-none">
+                      <JIcon icon={getVal(option, 'icon')} />
+                    </span>
+                    <span className="flex-grow"> {getVal(option, 'label')} </span>
+                  </div>
+                )}
+              />
+            </div>
           </div>
         </div>
       </div>

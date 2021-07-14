@@ -16,5 +16,6 @@ export interface BaseJButtonProps {
   avatarRound?: boolean;
   iconRight?: boolean;
   dense?: boolean;
+  noBg?: boolean;
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }

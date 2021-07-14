@@ -1,5 +1,6 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
+import BottomNav from 'src/components/user/BottomNav';
 import LeftNav from 'src/components/user/LeftNav';
 import RightNav from 'src/components/user/RightNav';
 import 'src/styles/layouts.scss';
@@ -19,6 +20,9 @@ const Authorized: React.FC<Props> = () => {
         {' '}
         <RightNav />
       </aside>
+      <div className="j-layout__bottombar">
+        <BottomNav />
+      </div>
     </div>
   );
 };

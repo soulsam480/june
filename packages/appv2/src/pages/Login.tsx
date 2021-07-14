@@ -32,17 +32,23 @@ const Login: React.FC<Props> = () => {
                   alt=""
                 />
 
-                <JInput
-                  value={user?.email}
-                  onInput={(email) => setUser({ ...user, email })}
-                  placeholder="Email or username"
-                />
-                <JInput
-                  value={user?.password}
-                  onInput={(password) => setUser({ ...user, password })}
-                  placeholder="Password"
-                />
-                <JButton label="Log In" block />
+                <form className="flex flex-col space-y-4 ">
+                  {' '}
+                  <JInput
+                    value={user?.email}
+                    type="email"
+                    onInput={(email) => setUser({ ...user, email })}
+                    placeholder="Email or username"
+                  />
+                  <JInput
+                    value={user?.password}
+                    onInput={(password) => setUser({ ...user, password })}
+                    placeholder="Password"
+                    type="password"
+                  />
+                  <JButton label="Log In" type="submit" block />
+                </form>
+
                 <div className="text-base">OR</div>
 
                 <div className="flex space-x-2 items-center justify-center">
@@ -58,28 +64,31 @@ const Login: React.FC<Props> = () => {
                   className="max-w-full m-auto block sm:hidden w-16"
                   alt=""
                 />
-
-                <JInput
-                  value={user?.name}
-                  onInput={(email) => setUser({ ...user, email })}
-                  placeholder="Name"
-                />
-                <JInput
-                  value={user?.username}
-                  onInput={(password) => setUser({ ...user, password })}
-                  placeholder="Username"
-                />
-                <JInput
-                  value={user?.email}
-                  onInput={(email) => setUser({ ...user, email })}
-                  placeholder="Email"
-                />
-                <JInput
-                  value={user?.password}
-                  onInput={(password) => setUser({ ...user, password })}
-                  placeholder="Password"
-                />
-                <JButton label="Sign Up" block />
+                <form className="flex flex-col space-y-4">
+                  <JInput
+                    value={user?.name}
+                    onInput={(email) => setUser({ ...user, email })}
+                    placeholder="Name"
+                  />
+                  <JInput
+                    value={user?.username}
+                    onInput={(password) => setUser({ ...user, password })}
+                    placeholder="Username"
+                  />
+                  <JInput
+                    value={user?.email}
+                    type="email"
+                    onInput={(email) => setUser({ ...user, email })}
+                    placeholder="Email"
+                  />
+                  <JInput
+                    value={user?.password}
+                    onInput={(password) => setUser({ ...user, password })}
+                    placeholder="Password"
+                    type="password"
+                  />
+                  <JButton label="Sign Up" type="submit" block />
+                </form>
               </div>
             )}
           </div>
