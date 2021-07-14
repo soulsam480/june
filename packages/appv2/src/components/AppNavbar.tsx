@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import JIcon from 'src/lib/JIcon';
 import JMenu from 'src/lib/JMenu';
 import { classNames } from 'src/utils/hepers';
@@ -35,7 +36,11 @@ const AppNavbar: React.FC<Props> = () => {
     >
       <div className="max-w-7xl mx-auto px-2">
         <div className="relative flex items-center justify-between h-14">
-          <div className="text-2xl">June</div>
+          <div>
+            <Link to="/">
+              <img className="w-10 m-auto" src="/june-logo.svg" alt="June" />
+            </Link>
+          </div>
           <div className="flex space-x-1 items-center">
             <JMenu
               options={options}
@@ -47,6 +52,7 @@ const AppNavbar: React.FC<Props> = () => {
               sm
               dense
               iconRight
+              invert
               optionKey="value"
               optionSlot={(option, getVal) => (
                 <div className="w-full flex items-center space-x-2">

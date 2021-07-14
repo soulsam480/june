@@ -20,7 +20,7 @@ interface Props extends BaseJButtonProps {
 }
 
 const JMenu: React.FC<Props> = (props) => {
-  const { options, optionKey, onInput, value, optionSlot, listAlign, ...rest } = props;
+  const { options, optionKey, onInput, value, optionSlot, listAlign, invert, ...rest } = props;
 
   const [isMenu, setMenu] = useState(false);
   const [ref] = useClickoutside<HTMLDivElement>(() => setMenu(false));
@@ -52,7 +52,7 @@ const JMenu: React.FC<Props> = (props) => {
   return (
     <div className="relative j-menu" ref={ref}>
       <div>
-        <JButton {...rest} onClick={() => setMenu(!isMenu)} />
+        <JButton {...rest} invert={invert} onClick={() => setMenu(!isMenu)} />
       </div>
       <CSSTransition
         in={isMenu}
@@ -73,7 +73,7 @@ const JMenu: React.FC<Props> = (props) => {
             tab-index="-1"
             role="listbox"
             aria-labelledby="assigned-to-label"
-            className="j-menu__list"
+            className={classNames(['j-menu__list', invert ? 'bg-lime-300' : 'bg-lime-400'])}
           >
             {options.map((option) => {
               return (
@@ -83,7 +83,13 @@ const JMenu: React.FC<Props> = (props) => {
                   title={getOptionVal(option, optionKey)}
                   className={classNames([
                     'j-menu__list-item',
-                    `${value === getOptionVal(option, optionKey) ? `bg-lime-300` : ''}`,
+                    value === getOptionVal(option, optionKey)
+                      ? invert
+                        ? 'bg-lime-400'
+                        : 'bg-lime-300'
+                      : '',
+
+                    invert ? 'hover:bg-lime-400' : 'hover:bg-lime-300',
                   ])}
                   onClick={(e) => handleClick(option, e)}
                 >

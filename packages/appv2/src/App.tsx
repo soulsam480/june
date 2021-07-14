@@ -3,8 +3,9 @@ import AppNavbar from 'src/components/AppNavbar';
 import { useRoutes } from 'react-router-dom';
 import Lib from 'src/pages/Lib';
 import Index from 'src/layouts/Index';
-import Authorized from 'src/layouts/Authorized';
+import Home from 'src/layouts/Home';
 import Feed from 'src/pages/Feed';
+import Login from 'src/pages/Login';
 
 interface Props {}
 
@@ -16,13 +17,21 @@ const App: React.FC<Props> = () => {
       children: [
         {
           path: '/',
+          element: <Login />,
+        },
+        {
+          path: '/lib',
           element: <Lib />,
+        },
+        {
+          path: '/login',
+          element: <Login />,
         },
       ],
     },
     {
       path: 'u',
-      element: <Authorized />,
+      element: <Home />,
       children: [
         {
           path: '/',
