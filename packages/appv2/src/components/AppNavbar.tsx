@@ -32,7 +32,7 @@ const AppNavbar: React.FC<Props> = () => {
       className={classNames([
         'sticky top-0 z-20 transition-colors duration-400',
         'ease-in-out bg-warm-gray-100 dark:bg-cool-gray-800',
-        'backdrop-filter backdrop-blur-md bg-opacity-40 border-b border-gray-200',
+        'border-b border-gray-200',
       ])}
     >
       <div className="max-w-7xl mx-auto px-2">

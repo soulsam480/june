@@ -5,6 +5,7 @@ import JMenu from 'src/lib/JMenu';
 import JIcon from 'src/lib/JIcon';
 import { useState } from 'react';
 import { classNames } from 'src/utils/hepers';
+import JCard from 'src/lib/JCard';
 
 interface Props {}
 
@@ -189,10 +190,52 @@ const Lib: React.FC<Props> = () => {
               sm
               avatarRound
               dense
-              avatar="img:https://cdn.quasar.dev/img/avatar.png"
+              avatar="icn:ion:person"
               listAlign="left"
             />
-          </div>
+          </div>  
+          <JCard
+            headerSlot={
+              <div className="flex px-2 pt-2 justify-between items-center">
+                <div className="flex space-x-2 grow items-center">
+                  <div className="flex-none">
+                    <JAvatar src="https://cdn.quasar.dev/img/avatar.png" rounded />
+                  </div>
+                  <div className="flex grow">Username</div>
+                </div>
+                <div className="flex-none">
+                  <JMenu
+                    value={val}
+                    onInput={(v) => setVal(v)}
+                    optionKey="value"
+                    options={options}
+                    size="20px"
+                    round
+                    sm
+                    noBg
+                    dense
+                    icon="ion:ellipsis-horizontal-outline"
+                    listAlign="right"
+                  />
+                </div>
+              </div>
+            }
+            footerSlot={
+              <div className="flex px-1 py-2  justify-between items-center">
+                <div className="flex space-x-1">
+                  <JButton noBg icon="ion:heart-outline" size="25px" sm dense />
+                  <JButton noBg icon="ion:chatbubble-outline" size="25px" sm dense />
+                </div>
+
+                <JButton noBg icon="ion:share-social-outline" size="25px" sm dense />
+              </div>
+            }
+            height={'auto'}
+            width={'400px'}
+            noBg
+          >
+            <img src="https://wallpaperaccess.com/full/211836.jpg" className="text-center" />
+          </JCard>
         </div>
       </div>
     </div>
