@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 export function useClickoutside<T extends HTMLElement>(cb: () => any) {
   const ref = useRef<T>(null);

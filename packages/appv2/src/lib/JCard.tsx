@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { classNames } from 'src/utils/hepers';
-
+import 'src/styles/postcard.scss';
 export interface JCardProps {
   className?: string;
   loading?: boolean;
@@ -32,7 +32,6 @@ const JCard: React.FC<JCardProps> = ({
 }) => {
   const cardClasses = useMemo(
     () => [
-      `border-2 `,
       noBg ? 'bg-transparent' : 'bg-warm-gray-200',
       `${round ? 'rounded-full' : 'rounded-md'}`,
       `${rest.className ?? ''}`,
