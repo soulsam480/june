@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import JAvatar from 'src/lib/JAvatar';
 import JButton from 'src/lib/JButton';
 import JCard from 'src/lib/JCard';
+import JImage from 'src/lib/JImage';
 import JMenu from 'src/lib/JMenu';
 
-interface Props {}
+interface Props {
+  imgSrc: string;
+}
 
-const PostCard: React.FC<Props> = () => {
+const PostCard: React.FC<Props> = ({ imgSrc }) => {
   const [val, setVal] = useState('');
   const options = [
     {
@@ -25,6 +28,7 @@ const PostCard: React.FC<Props> = () => {
       icon: 'ion:log-out-outline',
     },
   ];
+
   return (
     <JCard
       headerSlot={
@@ -33,7 +37,10 @@ const PostCard: React.FC<Props> = () => {
             <div className="flex-none">
               <JAvatar src="https://cdn.quasar.dev/img/avatar.png" rounded />
             </div>
-            <div className="flex grow">Username</div>
+            <div className="flex grow flex-col space-y-1 justify-start">
+              <div className="text-sm">Manish Sahu</div>
+              <div className="text-xs">Cuttack</div>
+            </div>
           </div>
           <div className="flex-none">
             <JMenu
@@ -62,11 +69,9 @@ const PostCard: React.FC<Props> = () => {
           <JButton noBg icon="ion:share-social-outline" size="25px" sm dense />
         </div>
       }
-      height={'auto'}
-      width={'100%'}
-      
+      block
     >
-      <img src="https://wallpaperaccess.com/full/211836.jpg" className="text-center" />
+      <JImage src={imgSrc} loading="lazy" minHeight="300px" />
     </JCard>
   );
 };

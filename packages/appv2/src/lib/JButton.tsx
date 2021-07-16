@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { classNames } from 'src/utils/hepers';
 import JIcon from 'src/lib/JIcon';
 import JAvatar from 'src/lib/JAvatar';
@@ -33,44 +33,50 @@ const JButton: React.FC<JButtonProps> = ({
   noBg,
   ...rest
 }) => {
+  const buttonClasses = useMemo(
+    () => [
+      noBg
+        ? 'bg-transparent hover:(bg-transparent text-lime-600)'
+        : invert
+        ? 'bg-lime-300 hover:bg-lime-400'
+        : flat
+        ? 'hover:bg-lime-200'
+        : outline
+        ? 'hover:bg-lime-200 border border-lime-400'
+        : 'bg-lime-400 hover:bg-lime-300',
+      dense
+        ? '!px-[2px] !py-[2px]'
+        : sm || (sm && round)
+        ? '!px-2 !py-2'
+        : round
+        ? '!px-3 !py-3'
+        : '',
+      `${round ? 'rounded-full' : 'rounded-md'}`,
+      `${rest.className ?? ''}`,
+      {
+        'w-full': !!block,
+      },
+    ],
+    [noBg, invert, flat, outline, dense, sm, round, rest.className, block],
+  );
+
+  const buttonContentClasses = useMemo(
+    () => [
+      {
+        'j-button__content--loading': loading,
+        'flex-row-reverse !space-x-reverse ': iconRight,
+      },
+    ],
+    [loading, iconRight],
+  );
+
   return (
     <button
-      className={classNames([
-        'j-button',
-        {
-          'w-full': block,
-        },
-        dense
-          ? '!px-[2px] !py-[2px]'
-          : sm || (sm && round)
-          ? '!px-2 !py-2'
-          : round
-          ? '!px-3 !py-3'
-          : '',
-        noBg
-          ? 'bg-transparent hover:(bg-transparent text-lime-600)'
-          : invert
-          ? 'bg-lime-300 hover:bg-lime-400'
-          : flat
-          ? 'hover:bg-lime-200'
-          : outline
-          ? 'hover:bg-lime-200 border border-lime-400'
-          : 'bg-lime-400 hover:bg-lime-300',
-        `${round ? 'rounded-full' : 'rounded-md'}`,
-        `${rest.className ?? ''}`,
-      ])}
+      className={classNames(['j-button', ...buttonClasses])}
       type={type || 'button'}
       onClick={rest.onClick}
     >
-      <span
-        className={classNames([
-          'j-button__content',
-          {
-            'j-button__content--loading': loading,
-            'flex-row-reverse !space-x-reverse ': iconRight,
-          },
-        ])}
-      >
+      <span className={classNames(['j-button__content', ...buttonContentClasses])}>
         <>
           {!!iconSlot ? (
             iconSlot
@@ -91,7 +97,7 @@ const JButton: React.FC<JButtonProps> = ({
           )}
         </>
         <>
-          {labelSlot
+          {!!labelSlot
             ? labelSlot
             : label && (
                 <span className={classNames([{ 'text-xs': sm }, 'flex-grow'])}>{label}</span>

@@ -5,9 +5,9 @@ interface Props {}
 
 const Test: React.FC<Props> = () => {
   return (
-    <div className="flex flex-col space-y-3">
+    <div className="flex flex-col items-start space-y-3">
       {[...Array(10)].map((x, i) => (
-        <PostCard key={i}/>
+        <PostCard key={i} imgSrc={`https://picsum.photos/1920/1080?random=${i}`} />
       ))}
     </div>
   );

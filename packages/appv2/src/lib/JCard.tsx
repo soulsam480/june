@@ -1,14 +1,19 @@
-import React from 'react';
-import { BaseJButtonProps } from './../utils/types';
+import React, { useMemo } from 'react';
 import { classNames } from 'src/utils/hepers';
 
-export interface JCardProps extends BaseJButtonProps {
+export interface JCardProps {
   className?: string;
   loading?: boolean;
   height?: string;
   width?: string;
   headerSlot?: React.ReactNode;
   footerSlot?: React.ReactNode;
+  noBg?: boolean;
+  invert?: boolean;
+  flat?: boolean;
+  outline?: boolean;
+  round?: boolean;
+  block?: boolean;
 }
 
 const JCard: React.FC<JCardProps> = ({
@@ -22,21 +27,24 @@ const JCard: React.FC<JCardProps> = ({
   flat,
   outline,
   round,
+  block,
   ...rest
 }) => {
+  const cardClasses = useMemo(
+    () => [
+      `border-2 `,
+      noBg ? 'bg-transparent' : 'bg-warm-gray-200',
+      `${round ? 'rounded-full' : 'rounded-md'}`,
+      `${rest.className ?? ''}`,
+    ],
+    [noBg, round, rest.className],
+  );
+
   return (
-    <div
-      className={classNames([
-        `border-2 `,
-        noBg ? 'bg-transparent' : 'bg-warm-gray-200',
-        `${round ? 'rounded-full' : 'rounded-md'}`,
-        `${rest.className ?? ''}`,
-      ])}
-      style={{ width, height }}
-    >
-      <div className="flex flex-col justify-between space-y-2">
+    <div className={classNames([...cardClasses])} style={{ width: block ? '100%' : width, height }}>
+      <div className="flex flex-col space-y-2">
         <div>{headerSlot}</div>
-        <div className="grow h-auto w-full">{children}</div>
+        <div className="grow max-h-full max-w-full w-full">{children}</div>
         <div>{footerSlot}</div>
       </div>
     </div>

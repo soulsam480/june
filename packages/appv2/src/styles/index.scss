@@ -101,3 +101,11 @@ body {
   @apply rounded-md focus:(ring-lime-200 ring-2);
   @apply text-black dark:text-white bg-warm-gray-200;
 }
+
+.j-image {
+  @apply relative transition-all duration-200 ease-in-out;
+
+  &__loading {
+    @apply absolute inset-0 flex items-center justify-center;
+  }
+}

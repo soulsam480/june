@@ -1,4 +1,4 @@
-import React, { MouseEvent, useEffect, useState } from 'react';
+import React, { MouseEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { classNames } from 'src/utils/hepers';
 import { useClickoutside } from 'src/utils/hooks';
@@ -25,11 +25,11 @@ const JMenu: React.FC<Props> = (props) => {
   const [isMenu, setMenu] = useState(false);
   const [ref] = useClickoutside<HTMLDivElement>(() => setMenu(false));
 
-  function handleClose(e: KeyboardEvent) {
+  const handleClose = useCallback((e: KeyboardEvent) => {
     if (!isMenu) return;
     const { key } = e;
     if (key === 'Escape') return setMenu(false);
-  }
+  }, []);
 
   function getOptionVal(option: string | Record<string, any>, optionKey?: string): string {
     if (typeof option !== 'object') return option;
@@ -37,12 +37,23 @@ const JMenu: React.FC<Props> = (props) => {
     return option[optionKey];
   }
 
+  const optionVal = useMemo(() => getOptionVal, [optionKey]);
+
   function handleClick(option: string | Record<string, any>, e: MouseEvent) {
     if (!!onInput) {
       onInput(getOptionVal(option, optionKey), e);
     }
     setMenu(false);
   }
+
+  const optionClasses = useMemo(
+    () => (option: string | Record<string, any>, optionKey?: string) =>
+      [
+        value === getOptionVal(option, optionKey) ? (invert ? 'bg-lime-400' : 'bg-lime-300') : '',
+        invert ? 'hover:bg-lime-400' : 'hover:bg-lime-300',
+      ],
+    [optionKey],
+  );
 
   useEffect(() => {
     window.addEventListener('keydown', handleClose);
@@ -79,22 +90,13 @@ const JMenu: React.FC<Props> = (props) => {
               return (
                 <li
                   role="option"
-                  key={getOptionVal(option, optionKey)}
-                  title={getOptionVal(option, optionKey)}
-                  className={classNames([
-                    'j-menu__list-item',
-                    value === getOptionVal(option, optionKey)
-                      ? invert
-                        ? 'bg-lime-400'
-                        : 'bg-lime-300'
-                      : '',
-
-                    invert ? 'hover:bg-lime-400' : 'hover:bg-lime-300',
-                  ])}
+                  key={optionVal(option, optionKey)}
+                  title={optionVal(option, optionKey)}
+                  className={classNames(['j-menu__list-item', ...optionClasses(option, optionKey)])}
                   onClick={(e) => handleClick(option, e)}
                 >
                   {!!optionSlot ? (
-                    optionSlot(option, getOptionVal)
+                    optionSlot(option, optionVal)
                   ) : (
                     <span className="font-normal flex-grow">{getOptionVal(option, 'label')} </span>
                   )}
