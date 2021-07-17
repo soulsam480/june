@@ -74,12 +74,9 @@ const JImage: React.FC<Props> = ({
       <img
         src={src}
         loading={loading}
-        onLoad={(e) => handleLoad(e)}
-        onError={(e) => handleError(e)}
-        className={classNames([
-          'max-w-full max-h-full w-full h-full transition-all duration-300 ease-in',
-          isLoading ? 'opacity-0' : 'opacity-100',
-        ])}
+        onLoad={handleLoad}
+        onError={handleError}
+        className={classNames(['j-image__content', isLoading ? 'opacity-0' : 'opacity-100'])}
         style={{ objectFit: 'cover', objectPosition: '50% 50%' }}
       />
 

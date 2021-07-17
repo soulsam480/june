@@ -8,8 +8,6 @@ import { classNames } from 'src/utils/hepers';
 interface Props {}
 
 const AppNavbar: React.FC<Props> = () => {
-  // const [isNav, setNav] = useState(false);
-  // const [val, setVal] = useState('');
   const options = [
     {
       label: 'Account',
@@ -43,8 +41,10 @@ const AppNavbar: React.FC<Props> = () => {
             </Link>
           </div>
           <div className="flex space-x-1 items-center">
-            <JButton noBg icon="ion:chatbubble-ellipses-outline" size="30px" dense sm />
-
+            <div className="hidden sm:block">
+              <JButton noBg icon="ion:heart-outline" size="25px" sm dense />
+            </div>
+            <JButton noBg icon="ion:chatbubble-ellipses-outline" size="25px" dense sm />
             <div className="hidden sm:block">
               <JMenu
                 options={options}
