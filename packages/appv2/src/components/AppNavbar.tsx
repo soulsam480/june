@@ -43,7 +43,7 @@ const AppNavbar: React.FC<Props> = () => {
             </Link>
           </div>
           <div className="flex space-x-1 items-center">
-            <JButton noBg icon="ion:chatbubble-ellipses-outline" size="25px" sm />
+            <JButton noBg icon="ion:chatbubble-ellipses-outline" size="30px" dense sm />
 
             <div className="hidden sm:block">
               <JMenu

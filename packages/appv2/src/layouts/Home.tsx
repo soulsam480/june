@@ -4,10 +4,14 @@ import BottomNav from 'src/components/user/BottomNav';
 import LeftNav from 'src/components/user/LeftNav';
 import RightNav from 'src/components/user/RightNav';
 import 'src/styles/layouts.scss';
+import { classNames } from 'src/utils/hepers';
+import { useHideOnScroll } from 'src/utils/hooks';
 
 interface Props {}
 
 const Authorized: React.FC<Props> = () => {
+  const isHidden = useHideOnScroll();
+
   return (
     <div className="j-layout">
       <aside className="j-layout__leftbar">
@@ -20,7 +24,14 @@ const Authorized: React.FC<Props> = () => {
         {' '}
         <RightNav />
       </aside>
-      <div className="j-layout__bottombar">
+      <div
+        className={classNames([
+          'j-layout__bottombar',
+          {
+            'j-layout__bottombar--hidden': isHidden,
+          },
+        ])}
+      >
         <BottomNav />
       </div>
     </div>

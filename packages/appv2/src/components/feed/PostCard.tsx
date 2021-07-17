@@ -70,33 +70,36 @@ const PostCard: React.FC<Props> = ({ imgSrc }) => {
           <JButton noBg icon="ion:share-social-outline" size="25px" sm dense />
         </div>
       }
-      block
-    >
-      <div className="post-card__content">
-        <Linkify
-          componentDecorator={(h, t, k) => (
-            <a
-              href={h}
-              key={k}
-              className="text-lime-600 font-thin hover:(underline underline-lime-600) transition-all ease-in-out duration-300"
+      contentSlot={
+        <>
+          <div className="p-2 break-words">
+            <Linkify
+              componentDecorator={(h, t, k) => (
+                <a
+                  href={h}
+                  key={k}
+                  className="text-lime-600 font-thin hover:(underline underline-lime-600) transition-all ease-in-out duration-300"
+                >
+                  {' '}
+                  {t}{' '}
+                </a>
+              )}
             >
-              {' '}
-              {t}{' '}
-            </a>
-          )}
-        >
-          Lorem ipsum dolor sit amet, https://consectetur.com adipiscing elit. Maecenas
-          https://iaculis.in consequat arcu et eleifend. Duis fringilla a tortor in lobortis.
-          https://Phasellus.net ut tempus diam, nec scelerisque orci. Aliquam quis ligula
-          consectetur, aliquam quam eu, pulvinar ex. Duis volutpat felis quis lorem cursus, nec
-          finibus felis pretium. https://Nullam.io nec nibh vel metus feugiat vehicula et et nisi.
-          Vivamus est augue, mattis dignissim velit vel, dignissim molestie turpis. Suspendisse
-          potenti.
-        </Linkify>
-      </div>
+              Lorem ipsum dolor sit amet, https://consectetur.com adipiscing elit. Maecenas
+              https://iaculis.in consequat arcu et eleifend. Duis fringilla a tortor in lobortis.
+              https://Phasellus.net ut tempus diam, nec scelerisque orci. Aliquam quis ligula
+              consectetur, aliquam quam eu, pulvinar ex. Duis volutpat felis quis lorem cursus, nec
+              finibus felis pretium. https://Nullam.io nec nibh vel metus feugiat vehicula et et
+              nisi. Vivamus est augue, mattis dignissim velit vel, dignissim molestie turpis.
+              Suspendisse potenti.
+            </Linkify>
+          </div>
 
-      <JImage src={imgSrc} loading="lazy" minHeight="300px" />
-    </JCard>
+          <JImage src={imgSrc} loading="lazy" minHeight="300px" />
+        </>
+      }
+      block
+    ></JCard>
   );
 };
 
